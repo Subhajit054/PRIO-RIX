@@ -1,0 +1,6 @@
+{
+  "name": "Priorix",
+  "description": "Personal execution and commitment management platform to track goals, deadlines, tasks, follow-ups, and neglected items.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

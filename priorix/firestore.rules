@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Top-level users document (profile)
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // Subcollections scoped directly under users/{uid}/...
+      match /goals/{goalId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /tasks/{taskId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /commitments/{commitmentId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /followUps/{followUpId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /reminders/{reminderId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /activity/{activityId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /integrations/{integrationId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /email_analysis/{messageId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /deadlines/{deadlineId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /notifications/{notificationId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /notification_settings/{configId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /calendar_events/{eventId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /followups/{followupId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Default deny for anything outside /users/{uid}
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
